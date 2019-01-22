@@ -1,5 +1,8 @@
 import json
 import random
+from func import *
+
+
 # print("random :" + str(random.randint(0,20)))
 
 #Récupération des données pour les exercices
@@ -47,7 +50,7 @@ for facteur1 in premierFacteurs:
         reponseFausse = True
         nbrTentatives = 0
         while reponseFausse :
-            reponse = int(input("réponse: "))
+            reponse = captureNumber()
             nbrTentatives = nbrTentatives + 1
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
@@ -55,6 +58,8 @@ for facteur1 in premierFacteurs:
             else:
                 reponseFausse = True
         print("Nombre de tentatives: " + str(nbrTentatives))
+
+
 ##########################################################################
 exercice = dataExercice[exercices[0]]
 
