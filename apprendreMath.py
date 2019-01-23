@@ -20,6 +20,8 @@ for valeur in dataExercice.keys():
     # print("Exercices: " + str(titresExercices))
 
 # Affichage des exercices et selection
+
+#affichage des exercices
 nbrExercices = len(exercices)
 print(str(nbrExercices) + " exercices aux choix")
 index = 0
@@ -27,9 +29,10 @@ for valeur in exercices:
     print("[" + str(index) + "] Exercices: " + valeur)
     index = index + 1
 
+# Saisie du choix
 reponseFausse = True
 while reponseFausse:
-    noExercice = int(input("Entrer le no de l'exercice: "))
+    noExercice = captureNumber("Choix: ")
     if noExercice < nbrExercices:
         reponseFausse = False
 print("Tu as choisis: " + exercices[noExercice])
@@ -51,13 +54,14 @@ for facteur1 in premierFacteurs:
         reponseFausse = True
         nbrTentatives = 0
         while reponseFausse :
-            reponse = captureNumber()
+            reponse = captureNumber("Réponse: ")
             nbrTentatives = nbrTentatives + 1
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
                 reponseFausse = False
             else:
                 reponseFausse = True
+                #print("Peux faire mieux ...")
         print("Nombre de tentatives: " + str(nbrTentatives))
 
 

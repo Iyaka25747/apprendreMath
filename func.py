@@ -1,18 +1,15 @@
-def captureNumber():
+def captureNumber(question):
     isNotInteger = True
-    while isNotInteger: 
-            
-        userInput = input("réponse: ")
-        print("Is string: " + str(isinstance(userInput, str)))
-        try:
-             val = int(userInput)
-        except ValueError:
-             print("That's not an int!")
+    while isNotInteger:
 
-             
-        if isinstance(userInput, str):
-            userInput = int(userInput)
+        userInput = input(question)
+        #print("Is string: " + str(isinstance(userInput, str)))
+        try:
+            val = int(userInput)
             isNotInteger = False
+        except ValueError:
+            print("Batar, ce n'est pas un chiffre !")
+            isNotInteger = True
     return int(userInput)
 
-captureNumber()
+#captureNumber("Entrer un chiffre: ")
