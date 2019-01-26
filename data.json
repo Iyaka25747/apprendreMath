@@ -1,4 +1,9 @@
 {
+    "Multiplication test": 
+        {
+            "premier facteurs" : [1],
+            "deuxieme facteurs": [1, 2] 
+        },
     "Multiplication (1..12) * (1..12)": 
         {
             "premier facteurs" : [4, 5, 6],

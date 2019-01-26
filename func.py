@@ -1,8 +1,8 @@
-def captureNumber(question):
+def captureNumber(questionText):
     isNotInteger = True
     while isNotInteger:
 
-        userInput = input(question)
+        userInput = input(questionText)
         #print("Is string: " + str(isinstance(userInput, str)))
         try:
             val = int(userInput)

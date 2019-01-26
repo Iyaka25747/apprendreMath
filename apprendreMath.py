@@ -1,12 +1,13 @@
 
 import json
 import random
+import time
 from func import *
 
 
 # print("random :" + str(random.randint(0,20)))
 
-#Récupération des données pour les exercices
+# Récupération des données pour les exercices
 with open('data.json', 'r') as file:
     dataExercice = json.load(file)
 # print(json.dumps(dataExercice, indent=4))
@@ -21,7 +22,7 @@ for valeur in dataExercice.keys():
 
 # Affichage des exercices et selection
 
-#affichage des exercices
+# affichage des exercices
 nbrExercices = len(exercices)
 print(str(nbrExercices) + " exercices aux choix")
 index = 0
@@ -37,50 +38,42 @@ while reponseFausse:
         reponseFausse = False
 print("Tu as choisis: " + exercices[noExercice])
 
+##########################
+# Execution de l'exercice#
+##########################
 
-# Execution de l'exercice
-
-#Récupération des facteurs de multiplication de l exercice
+# Récupération des facteurs de multiplication de l exercice
 premierFacteurs = dataExercice[exercices[noExercice]]["premier facteurs"]
-deuxiemeFacteurs =  dataExercice[exercices[noExercice]]["deuxieme facteurs"]
+deuxiemeFacteurs = dataExercice[exercices[noExercice]]["deuxieme facteurs"]
+nombreDeCalculs = len(premierFacteurs) * len(deuxiemeFacteurs)
+#print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
 
-#Exercices
-indexCalcul = 1
+# Exercices
+indexCalcul = nombreDeCalculs
+tempsDepart = time.perf_counter()
+nombreReponsesFaussesTot = 0
 for facteur1 in premierFacteurs:
     for facteur2 in deuxiemeFacteurs:
-        print("Combien font: " + str(facteur1)+"x"+str(facteur2)+"=")
-        
-
+ #       print("Entrer le résultat: " + str(facteur1)+"x"+str(facteur2)+"=")
+  #      print("Entrer le résultat: {facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2))        
         reponseFausse = True
         nbrTentatives = 0
         while reponseFausse :
-            reponse = captureNumber("Réponse: ")
+            reponse = captureNumber("[{countDown}] Entrer le résultat de {facteur1}x{facteur2}: ".format(countDown=indexCalcul,facteur1=facteur1,facteur2=facteur2))
             nbrTentatives = nbrTentatives + 1
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
                 reponseFausse = False
             else:
                 reponseFausse = True
-                #print("Peux faire mieux ...")
+                # print("Peux faire mieux ...")
+        indexCalcul = indexCalcul - 1
         print("Nombre de tentatives: " + str(nbrTentatives))
+        nombreReponsesFaussesTot = nombreReponsesFaussesTot + nbrTentatives
+#Enregistrement des statistiques
+tempsFin = time.perf_counter()
+dureeExercice = tempsFin - tempsDepart
+
+print("Ouf.... c'est fini, temps passé: {tempsExercice}, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 
 
-##########################################################################
-exercice = dataExercice[exercices[0]]
-
-# premierL = exercice[0]
-# premierL = dataExercice["Multiplication"][0]
-# print(premierL)
-# premierFacteurList = premierL["list 1er facteur"]
-# print(premierFacteurList)
-# deuxiemeFacteurList = premierL["list 2eme facteur"]
-# print(deuxiemeFacteurList)
-premierFacteurList = exercice["list 1er facteur"]
-deuxiemeFacteurList = exercice["list 2eme facteur"]
-print("1ers facteur :" + str(premierFacteurList) )
-print("2emes facteur :" + str(deuxiemeFacteurList) )
-for facteur1 in premierFacteurList:
-    # print(facteur1)
-    for facteur2 in deuxiemeFacteurList:
-        print("Multiplication " + str(facteur1) + "*" + str(facteur2) + " : " + str(facteur1 * facteur2))
-    
