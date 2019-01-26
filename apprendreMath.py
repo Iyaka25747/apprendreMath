@@ -1,8 +1,10 @@
 
 import json
 import random
-import time
+import time #for measuring elapsed time
 from func import *
+import os #for terminal screen clearing
+import winsound # Son, bruitage 
 
 
 # print("random :" + str(random.randint(0,20)))
@@ -48,6 +50,9 @@ deuxiemeFacteurs = dataExercice[exercices[noExercice]]["deuxieme facteurs"]
 nombreDeCalculs = len(premierFacteurs) * len(deuxiemeFacteurs)
 #print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
 
+#Clear terminal screen
+os.system('cls' if os.name == 'nt' else 'clear')
+
 # Exercices
 indexCalcul = nombreDeCalculs
 tempsDepart = time.perf_counter()
@@ -59,17 +64,20 @@ for facteur1 in premierFacteurs:
         reponseFausse = True
         nbrTentatives = 0
         while reponseFausse :
-            reponse = captureNumber("[{countDown}] Entrer le résultat de {facteur1}x{facteur2}: ".format(countDown=indexCalcul,facteur1=facteur1,facteur2=facteur2))
+            reponse = captureNumber("[{countDown} calculs restant] Entrer le résultat de {facteur1}x{facteur2}: ".format(countDown=indexCalcul,facteur1=facteur1,facteur2=facteur2))
             nbrTentatives = nbrTentatives + 1
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
                 reponseFausse = False
+                winsound.PlaySound('good.wav', winsound.SND_FILENAME)
             else:
                 reponseFausse = True
+                winsound.PlaySound('bad.wav', winsound.SND_FILENAME)
                 # print("Peux faire mieux ...")
         indexCalcul = indexCalcul - 1
         print("Nombre de tentatives: " + str(nbrTentatives))
-        nombreReponsesFaussesTot = nombreReponsesFaussesTot + nbrTentatives
+        nombreReponsesFaussesTot = nombreReponsesFaussesTot + (nbrTentatives-1)
+        #print("Nombre tentative: {nbrTent} et nombre total: {nbrTot}".format(nbrTent = nbrTentatives-1, nbrTot = nombreReponsesFaussesTot))
 #Enregistrement des statistiques
 tempsFin = time.perf_counter()
 dureeExercice = tempsFin - tempsDepart
