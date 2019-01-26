@@ -60,7 +60,8 @@ nombreReponsesFaussesTot = 0
 for facteur1 in premierFacteurs:
     for facteur2 in deuxiemeFacteurs:
  #       print("Entrer le résultat: " + str(facteur1)+"x"+str(facteur2)+"=")
-  #      print("Entrer le résultat: {facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2))        
+  #      print("Entrer le résultat:
+  #  {facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2))        
         reponseFausse = True
         nbrTentatives = 0
         while reponseFausse :
