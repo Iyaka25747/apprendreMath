@@ -6,7 +6,7 @@
         },
     "Multiplication (1..12) * (1..12)": 
         {
-            "premier facteurs" : [4, 5, 6],
+            "premier facteurs" : [3, 4, 5, 6],
             "deuxieme facteurs": [2, 3, 4] 
         },
     "Multiplication (1..12) * (1..20)":
