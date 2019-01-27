@@ -1,9 +1,3 @@
 import time
-
-
-start = time.perf_counter()
-print("hello" + str(start))
-end = time.perf_counter()
-elapsed = end - start
-print(elapsed)
-
+import winsound
+winsound.PlaySound('bad.wav', winsound.SND_FILENAME)
