@@ -8,6 +8,9 @@ import winsound # Son, bruitage
 import datetime #for date
 
 #Initialization
+#badSound = "bad.waw"
+badSound = "Batar.wav"
+goodSound = "good.waw"
 currentDate = datetime.datetime.today()
 exerciceRecord = []
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
@@ -97,10 +100,10 @@ for facteur1 in premierFacteurs:
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
                 reponseFausse = False
-                winsound.PlaySound('good.wav', winsound.SND_FILENAME)
+                winsound.PlaySound(goodSound, winsound.SND_FILENAME)
             else:
                 reponseFausse = True
-                winsound.PlaySound('bad.wav', winsound.SND_FILENAME)
+                winsound.PlaySound(badSound, winsound.SND_FILENAME)
                 # print("Peux faire mieux ...")
         indexCalcul = indexCalcul + 1
         nombreCalculRestant = nombreCalculRestant - 1
