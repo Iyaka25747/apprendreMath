@@ -7,10 +7,12 @@ import os #for terminal screen clearing
 import winsound # Son, bruitage 
 import datetime #for date
 
-#Initialization
+#Initialization des sons
 #badSound = "bad.waw"
 badSound = "Batar.wav"
-goodSound = "good.waw"
+goodSound = "good.wav"
+#initialisation du fichier de statistiques
+recordFile = "recordsds.json"
 currentDate = datetime.datetime.today()
 exerciceRecord = []
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
@@ -113,7 +115,7 @@ for facteur1 in premierFacteurs:
         print("Nombre de tentatives: " + str(nbrTentatives))
 
         # Statistic calcul
-        recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Durée": str(dureeCalcul) }
+        recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
         if nbrTentatives > 1:
             calculsRecords.append(recordCalcul) # ajout à la liste
         nombreReponsesFaussesTot = nombreReponsesFaussesTot + (nbrTentatives-1)
@@ -126,7 +128,10 @@ dureeExercice = tempsTotalFin - tempsTotalDepart
 #Enregistrement des statistiques
 #record = {"Date": , "Joueur": , "Nom exercice": , "Durée": , "Calcul": , "Nombre de tentative": }
  
-exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Durée: " + str(dureeExercice), "Nombre réponses fausses totales: " + str(nombreReponsesFaussesTot), calculsRecords]
+exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Duree: " + str(dureeExercice), "Nombre reponses fausses totales: " + str(nombreReponsesFaussesTot), calculsRecords]
+#enregistrement dans un fichier json
+with open(recordFile, 'a') as f:
+    f.write(json.dumps(exerciceRecord, indent=4))
 
 print("Ouf.... c'est fini, temps passé: {tempsExercice}, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 

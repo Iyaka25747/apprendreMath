@@ -1,10 +1,18 @@
 #elapsed time
 import time
 
+
 start = time.perf_counter()
 print("hello" + str(start))
 end = time.perf_counter()
 elapsed = end - start
 print(elapsed)
 
-exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Durée: " + str(dureeExercice), "Nombre réponses fausses totales: " + str(nombreReponsesFaussesTot)]
+import winsound
+goodSound = "good.wav"
+winsound.PlaySound("bad.wav", winsound.SND_FILENAME)
+winsound.PlaySound(goodSound, winsound.SND_FILENAME)
+
+import json
+with open("test.json", 'a') as f:
+    f.write(json.dumps("Hello*", indent=4))
