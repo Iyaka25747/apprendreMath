@@ -1,4 +1,4 @@
-
+#try csv log
 import json
 import random
 import time #for measuring elapsed time, date
@@ -112,7 +112,7 @@ for facteur1 in premierFacteurs:
         calcul = "{facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2)
         tempsFinCalcul = time.perf_counter()
         dureeCalcul = tempsFinCalcul - tempsDepartCalcul
-        print("Nombre de tentatives: " + str(nbrTentatives))
+        print("Nombre de tentatives: " + str(nbrTentatives)) 
 
         # Statistic calcul
         recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
