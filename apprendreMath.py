@@ -6,6 +6,8 @@ from func import *
 import os #for terminal screen clearing
 import winsound # Son, bruitage 
 import datetime #for date
+import csv #for statiristics logs
+
 
 #Initialization des sons
 #badSound = "bad.waw"
@@ -115,7 +117,8 @@ for facteur1 in premierFacteurs:
         print("Nombre de tentatives: " + str(nbrTentatives)) 
 
         # Statistic calcul
-        recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
+        recordCalcul = [str(currentDate), nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+        #recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
         if nbrTentatives > 1:
             calculsRecords.append(recordCalcul) # ajout à la liste
         nombreReponsesFaussesTot = nombreReponsesFaussesTot + (nbrTentatives-1)
@@ -128,10 +131,16 @@ dureeExercice = tempsTotalFin - tempsTotalDepart
 #Enregistrement des statistiques
 #record = {"Date": , "Joueur": , "Nom exercice": , "Durée": , "Calcul": , "Nombre de tentative": }
  
-exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Duree: " + str(dureeExercice), "Nombre reponses fausses totales: " + str(nombreReponsesFaussesTot), calculsRecords]
+#exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Duree: " + str(dureeExercice), "Nombre reponses fausses totales: " + str(nombreReponsesFaussesTot), calculsRecords]
 #enregistrement dans un fichier json
-with open(recordFile, 'a') as f:
-    f.write(json.dumps(exerciceRecord, indent=4))
+# with open(recordFile, 'a') as f:
+#     f.write(json.dumps(exerciceRecord, indent=4))
+with open('test.csv', 'a') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerow(calculsRecords)
+
+csvFile.close()
+
 
 print("Ouf.... c'est fini, temps passé: {tempsExercice}, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 
