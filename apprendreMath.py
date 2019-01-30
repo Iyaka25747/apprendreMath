@@ -11,12 +11,14 @@ import csv #for statiristics logs
 
 #Initialization des sons
 #badSound = "bad.waw"
+soundActive = False
 badSound = "Batar.wav"
 goodSound = "good.wav"
 #initialisation du fichier de statistiques
-recordFile = "recordsds.json"
+recordFile = "records.csv"
 currentDate = datetime.datetime.today()
 exerciceRecord = []
+# Enregistrement des calculs "Date","Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
 print("Date: " + str(currentDate))
 # print("random :" + str(random.randint(0,20)))
@@ -104,10 +106,12 @@ for facteur1 in premierFacteurs:
             # vérification de la réponse
             if reponse == facteur1 * facteur2:
                 reponseFausse = False
-                winsound.PlaySound(goodSound, winsound.SND_FILENAME)
+                if soundActive == True:
+                    winsound.PlaySound(goodSound, winsound.SND_FILENAME)
             else:
                 reponseFausse = True
-                winsound.PlaySound(badSound, winsound.SND_FILENAME)
+                if soundActive == True:
+                    winsound.PlaySound(badSound, winsound.SND_FILENAME)
                 # print("Peux faire mieux ...")
         indexCalcul = indexCalcul + 1
         nombreCalculRestant = nombreCalculRestant - 1
@@ -117,10 +121,13 @@ for facteur1 in premierFacteurs:
         print("Nombre de tentatives: " + str(nbrTentatives)) 
 
         # Statistic calcul
-        recordCalcul = [str(currentDate), nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+        list1 = [str(currentDate) , nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+        
+        #recordCalcul = '+'.join(str(e) for e in list1) 
         #recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
         if nbrTentatives > 1:
-            calculsRecords.append(recordCalcul) # ajout à la liste
+            #calculsRecords.append(recordCalcul) # ajout à la liste
+            calculsRecords.append(list1)
         nombreReponsesFaussesTot = nombreReponsesFaussesTot + (nbrTentatives-1)
         #print("Nombre tentative: {nbrTent} et nombre total: {nbrTot}".format(nbrTent = nbrTentatives-1, nbrTot = nombreReponsesFaussesTot))
     
@@ -128,19 +135,13 @@ for facteur1 in premierFacteurs:
 #Statistiques globales
 tempsTotalFin = time.perf_counter()
 dureeExercice = tempsTotalFin - tempsTotalDepart
+
 #Enregistrement des statistiques
-#record = {"Date": , "Joueur": , "Nom exercice": , "Durée": , "Calcul": , "Nombre de tentative": }
- 
-#exerciceRecord = [str(currentDate), str(nomJoueur), str(nomExerciceChoisi), "Duree: " + str(dureeExercice), "Nombre reponses fausses totales: " + str(nombreReponsesFaussesTot), calculsRecords]
-#enregistrement dans un fichier json
-# with open(recordFile, 'a') as f:
-#     f.write(json.dumps(exerciceRecord, indent=4))
-with open('test.csv', 'a') as csvFile:
-    writer = csv.writer(csvFile)
-    writer.writerow(calculsRecords)
-
-csvFile.close()
-
+myFile = open(recordFile, 'a')
+with myFile:
+    writer = csv.writer(myFile)
+    writer.writerows(calculsRecords)
+myFile.close()
 
 print("Ouf.... c'est fini, temps passé: {tempsExercice}, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 

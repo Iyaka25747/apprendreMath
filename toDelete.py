@@ -26,3 +26,18 @@ with open('test.csv', 'a') as csvFile:
     writer.writerow(row)
 
 csvFile.close()
+
+import csv
+ 
+myData = [["first_name", "second_name", "Grade"],
+          ['Alex', 'Brian', 'A'],
+          ['Tom', 'Smith', 'B']]
+print(myData)
+
+myFile = open('test.csv', 'a')
+with myFile:
+    writer = csv.writer(myFile)
+    writer.writerows(myData)
+     
+print("Writing complete")
+myFile.close()
