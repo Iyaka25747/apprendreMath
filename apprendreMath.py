@@ -6,6 +6,7 @@ from func import *
 import os #for terminal screen clearing
 import winsound # Son, bruitage 
 import datetime #for date
+import time
 import csv #for statiristics logs
 
 
@@ -16,7 +17,10 @@ badSound = "Batar.wav"
 goodSound = "good.wav"
 #initialisation du fichier de statistiques
 recordFile = "records.csv"
-currentDate = datetime.datetime.today()
+maintenant = datetime.datetime.today()
+currentDate = "{year}-{month}-{day}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
+currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
+print("Date: {0}, Time:{1}".format(currentDate, currentTime))
 exerciceRecord = []
 # Enregistrement des calculs "Date","Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
@@ -117,11 +121,11 @@ for facteur1 in premierFacteurs:
         nombreCalculRestant = nombreCalculRestant - 1
         calcul = "{facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2)
         tempsFinCalcul = time.perf_counter()
-        dureeCalcul = tempsFinCalcul - tempsDepartCalcul
+        dureeCalcul = round(tempsFinCalcul - tempsDepartCalcul, 1)
         print("Nombre de tentatives: " + str(nbrTentatives)) 
 
         # Statistic calcul
-        list1 = [str(currentDate) , nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+        list1 = [currentDate, currentTime , nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
         
         #recordCalcul = '+'.join(str(e) for e in list1) 
         #recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
@@ -136,10 +140,10 @@ for facteur1 in premierFacteurs:
 tempsTotalFin = time.perf_counter()
 dureeExercice = tempsTotalFin - tempsTotalDepart
 
-#Enregistrement des statistiques
+#Enregistrement des 0statistiques
 myFile = open(recordFile, 'a')
 with myFile:
-    writer = csv.writer(myFile)
+    writer = csv.writer(myFile, delimiter=',', lineterminator='\n')
     writer.writerows(calculsRecords)
 myFile.close()
 
