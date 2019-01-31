@@ -41,3 +41,5 @@ with myFile:
      
 print("Writing complete")
 myFile.close()
+
+print("random :" + str(random.randint(0,20)))

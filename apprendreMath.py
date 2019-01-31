@@ -18,14 +18,12 @@ goodSound = "good.wav"
 #initialisation du fichier de statistiques
 recordFile = "records.csv"
 maintenant = datetime.datetime.today()
-currentDate = "{year}-{month}-{day}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
+currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
 currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
 print("Date: {0}, Time:{1}".format(currentDate, currentTime))
 exerciceRecord = []
 # Enregistrement des calculs "Date","Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
-print("Date: " + str(currentDate))
-# print("random :" + str(random.randint(0,20)))
 # Récupération des paramètres généraux
 with open("settings.json", "r") as file:
     dataSettings = json.load(file)
@@ -96,10 +94,7 @@ tempsTotalDepart = time.perf_counter()
 nombreReponsesFaussesTot = 0
 indexCalcul = 0
 for facteur1 in premierFacteurs:
-    for facteur2 in deuxiemeFacteurs:
-        #print("Entrer le résultat: " + str(facteur1)+"x"+str(facteur2)+"=")
-        #print("Entrer le résultat:
-        #{facteur1}x{facteur2}".format(facteur1=facteur1,facteur2=facteur2))        
+    for facteur2 in deuxiemeFacteurs:     
         reponseFausse = True
         nbrTentatives = 0
         tempsDepartCalcul = time.perf_counter()
@@ -126,16 +121,11 @@ for facteur1 in premierFacteurs:
 
         # Statistic calcul
         list1 = [currentDate, currentTime , nomJoueur, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
-        
-        #recordCalcul = '+'.join(str(e) for e in list1) 
-        #recordCalcul = {"Calcul": calcul, "Nombre de tentatives": str(nbrTentatives), "Duree": str(dureeCalcul) }
         if nbrTentatives > 1:
             #calculsRecords.append(recordCalcul) # ajout à la liste
             calculsRecords.append(list1)
         nombreReponsesFaussesTot = nombreReponsesFaussesTot + (nbrTentatives-1)
-        #print("Nombre tentative: {nbrTent} et nombre total: {nbrTot}".format(nbrTent = nbrTentatives-1, nbrTot = nombreReponsesFaussesTot))
-    
-
+        
 #Statistiques globales
 tempsTotalFin = time.perf_counter()
 dureeExercice = tempsTotalFin - tempsTotalDepart
