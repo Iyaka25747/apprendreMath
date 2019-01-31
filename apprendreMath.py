@@ -1,4 +1,4 @@
-#try csv log
+#try csv log 1
 import json
 import random
 import time #for measuring elapsed time, date
