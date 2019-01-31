@@ -1,4 +1,4 @@
-#try csv log mast
+# master
 import json
 import random
 import time #for measuring elapsed time, date
