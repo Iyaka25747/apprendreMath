@@ -43,7 +43,7 @@ def choisirExercice(dataExercice):
     reponseFausse = True
     while reponseFausse:
         noExercice = captureNumber("Choix: ")
-        if noExercice < index:
+        if noExercice <= index:
             reponseFausse = False
     # Récupèration du titre de l'exercice
     index = -1
