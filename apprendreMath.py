@@ -113,5 +113,3 @@ myFile.close()
 print("\nOuf.... c'est fini ...")
 print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 fin = input("Terminé")
-
-
