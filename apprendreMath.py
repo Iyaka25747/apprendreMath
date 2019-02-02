@@ -1,4 +1,5 @@
-# master
+# Stable
+
 import json
 import random
 import time #for measuring elapsed time, date
@@ -98,7 +99,7 @@ for facteur1 in premierFacteurs:
         
 #Statistiques globales
 tempsTotalFin = time.perf_counter()
-dureeExercice = tempsTotalFin - tempsTotalDepart
+dureeExercice = round(tempsTotalFin - tempsTotalDepart, 1)
 
 #Enregistrement des 0statistiques
 myFile = open(recordFile, 'a')
@@ -107,6 +108,8 @@ with myFile:
     writer.writerows(calculsRecords)
 myFile.close()
 
-print("Ouf.... c'est fini, temps passé: {tempsExercice}, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
+print("Ouf.... c'est fini ...")
+print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
+fin = input("Terminé")
 
 
