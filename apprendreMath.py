@@ -1,4 +1,5 @@
-# master
+# 2nd version, under construction
+
 import json
 import random
 import time #for measuring elapsed time, date
