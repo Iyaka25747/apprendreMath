@@ -101,14 +101,16 @@ for facteur1 in premierFacteurs:
 tempsTotalFin = time.perf_counter()
 dureeExercice = round(tempsTotalFin - tempsTotalDepart, 1)
 
-#Enregistrement des 0statistiques
+#Enregistrement des statistiques
 myFile = open(recordFile, 'a')
+print("Enregistrement des calculs dans {fichier}".format(fichier = recordFile ))
 with myFile:
     writer = csv.writer(myFile, delimiter=',', lineterminator='\n')
     writer.writerows(calculsRecords)
+print("Fin de l'enregistrement")
 myFile.close()
 
-print("Ouf.... c'est fini ...")
+print("\nOuf.... c'est fini ...")
 print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
 fin = input("Terminé")
 
