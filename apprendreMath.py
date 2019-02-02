@@ -1,4 +1,4 @@
-# 2nd version, under construction
+# Stable
 
 import json
 import random
