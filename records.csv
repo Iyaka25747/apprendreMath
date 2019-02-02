@@ -1,4 +1,9 @@
-Date,Heure,Joueur,Nom du test,Calcul,nbr. Tentatives,Duree
+Date,Heure,Joueur,Nom du test,Calcul,nbr Tentatives,Duree
 31.1.2019,22:12:35,Ilya,Multiplication test,1x1,6,5.8
 31.1.2019,22:12:35,Ilya,Multiplication test,1x2,3,3.1
 31.1.2019,22:21:10,Ilya,Multiplication test,1x1,3,4.8
+2.2.2019,8:35:47,Ilya,Multiplication test,1x1,3,5.8
+2.2.2019,8:35:47,Ilya,Multiplication test,1x2,2,1.0
+2.2.2019,13:15:35,Ilya,Multiplication test,1x1,4,4.5
+2.2.2019,13:25:22,Ilya,Multiplication test,1x1,4,4.7
+2.2.2019,13:25:22,Ilya,Multiplication test,1x2,3,2.4

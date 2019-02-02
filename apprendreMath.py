@@ -9,81 +9,51 @@ import datetime #for date
 import time
 import csv #for statiristics logs
 
+###############
+# Initialisation
+################
 
-#Initialization des sons
+# Initialization des sons
 #badSound = "bad.waw"
 soundActive = False
 badSound = "Batar.wav"
 goodSound = "good.wav"
-#initialisation du fichier de statistiques
-recordFile = "records.csv"
+# initialisation du temps
 maintenant = datetime.datetime.today()
 currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
 currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
 print("Date: {0}, Time:{1}".format(currentDate, currentTime))
-exerciceRecord = []
-# Enregistrement des calculs "Date","Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
+
+#Fichier source exercices
+exercicesFile = 'exercices.json'
+
+#initialisation du fichier de statistiques
+recordFile = "records.csv"
+exerciceRecord = [] # Enregistrement d'un calculs "Date", "Time", "Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
+
 # Récupération des paramètres généraux
 with open("settings.json", "r") as file:
     dataSettings = json.load(file)
+    file.close()
+nomJoueur = selectionJoueur(dataSettings)
 
-# Affichage et selection du joueur
-print("Joueurs: ")
-users = dataSettings["users"]
-for user in users:
-    print("[{index}] {user}".format(index = users.index(user), user = user )) 
-choixFaux = True
-while choixFaux:
-    joueurNo = captureNumber("Choix du joueur: ")
-    if joueurNo > len(users):
-        choixFaux = True
-    else:
-        choixFaux = False
-nomJoueur = users[joueurNo]
-print("Vous avez choisi: " + str(nomJoueur))
-
-# Récupération des données pour les exercices
-with open('exercices.json', 'r') as file:
-    dataExercice = json.load(file)
-    # print(json.dumps(dataExercice, indent=4))
-    # a= type(dataExercice)
-    # print(a)
-
-# Récupération des exerices dans la liste titresExercices
-exercices = []
-for valeur in dataExercice.keys():
-    exercices.append(valeur)
-    # print("Exercices: " + str(titresExercices))
-
-# Affichage des exercices et selection
-
-# affichage des exercices
-nbrExercices = len(exercices)
-print(str(nbrExercices) + " exercices aux choix")
-index = 0
-for valeur in exercices:
-    print("[" + str(index) + "] Exercices: " + valeur)
-    index = index + 1
-
-# Saisie du choix
-reponseFausse = True
-while reponseFausse:
-    noExercice = captureNumber("Choix: ")
-    if noExercice < nbrExercices:
-        reponseFausse = False
-print("Tu as choisis: " + exercices[noExercice])
-nomExerciceChoisi = exercices[noExercice]
+# Récupération des exercices
+with open(exercicesFile, 'r') as file:
+    dataExercices = json.load(file)
+    file.close()
+nomExerciceChoisi = choisirExercice(dataExercices)
 
 ##########################
 # Execution de l'exercice#
 ##########################
 
 # Récupération des facteurs de multiplication de l exercice
-premierFacteurs = dataExercice[exercices[noExercice]]["premier facteurs"]
-deuxiemeFacteurs = dataExercice[exercices[noExercice]]["deuxieme facteurs"]
+facteursCalculs = dataExercices[nomExerciceChoisi]
+premierFacteurs = facteursCalculs["premier facteurs"]
+deuxiemeFacteurs = facteursCalculs["deuxieme facteurs"]
 nombreDeCalculs = len(premierFacteurs) * len(deuxiemeFacteurs)
-#print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
+print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
 
 #Clear terminal screen
 os.system('cls' if os.name == 'nt' else 'clear')
