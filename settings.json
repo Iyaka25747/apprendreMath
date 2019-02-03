@@ -1,3 +1,9 @@
 {
-    "users": ["Ilya", "Tilio", "Caroline", "Vicky"]
+    "users": ["Ilya", "Tilio", "Caroline", "Vicky"],
+    "son": {
+        "active":"on", "commentaire":"Avec ou sans son, choisir on ou off",
+        "bad_sound":"bad.wav",
+        "good_sound":"good.wav"
+    }
+
 }

@@ -13,23 +13,28 @@ def captureNumber(questionText):
             isNotInteger = True
     return int(userInput)
 
-# Selection du jouer qui fera l'exercice
-def selectionJoueur(dataSettings):
-    # Affichage et selection du joueur
-    print("Joueurs: ")
-    users = dataSettings["users"]
-    for user in users:
-        print("[{index}] {user}".format(index=users.index(user), user=user))
+# Selection d'un element valeur parmis une liste de valeur d'une list
+def choisirElement(listOfValues):
+    # Affichage des valeurs possibles
+    position = -1
+    for element in listOfValues:
+        position = position + 1
+        print("[{position}] {value}".format(position=position, value=element))
+    #Choix d'une valeur
     choixFaux = True
     while choixFaux:
-        joueurNo = captureNumber("Choix du joueur: ")
-        if joueurNo > len(users):
+        capturedNumber = captureNumber("Choix: ")
+        # on s assure que c'est un choix possible
+        if capturedNumber >= len(listOfValues):
             choixFaux = True
         else:
             choixFaux = False
-    nomJoueur = users[joueurNo]
-    print("Vous avez choisi: " + str(nomJoueur))
-    return nomJoueur
+    chosenValue = listOfValues[capturedNumber]
+    #print("Vous avez choisi: " + str(chosenValue))
+    return chosenValue
+
+
+
 
 # Fonction pour choisir un exercice dans un dictionnaire dataExercice
 def choisirExercice(dataExercice):
@@ -54,3 +59,4 @@ def choisirExercice(dataExercice):
     # Affichage du choix
     print("Tu as choisis: " + nomExerciceChoisi)
     return nomExerciceChoisi
+

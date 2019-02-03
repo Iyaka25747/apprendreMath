@@ -1,5 +1,6 @@
 #elapsed time
 import time
+from func import *
 
 
 start = time.perf_counter()
@@ -42,4 +43,9 @@ with myFile:
 print("Writing complete")
 myFile.close()
 
-print("random :" + str(random.randint(0,20)))
+#print("random :" + str(random.randint(0,20)))
+
+# Test selection
+monDico = ["Ilya", "Tilio"]
+valeurChoisie = choisirElement(monDico)
+print("Valeur choisie: " +str(valeurChoisie))
