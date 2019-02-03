@@ -1,2 +1,2 @@
-Date,Heure,Joueur,Nom du test,Calcul,nbr Tentatives,Duree
+Date,Heure,Joueur,Type,Nom du test,Calcul,nbr Tentatives,Duree
 3.2.2019,13:18:45,Ilya,Multi test,1x1,3,6.5

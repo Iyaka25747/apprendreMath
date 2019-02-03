@@ -1,27 +1,38 @@
 {
-    "Multi test": 
+    "Multiplication":
     {
-    "premier facteurs" : [1],
-    "deuxieme facteurs": [1,2] 
-    },
-    "Multiplication (3..8) * (4..9)": 
+        "Multi test": 
         {
+        "premier facteurs" : [1],
+        "deuxieme facteurs": [1,2] 
+        },
+        "Multiplication (3..8) * (4..9)": 
+            {
+                "premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
+                "deuxieme facteurs": [4, 6, 8, 9, 5, 7] 
+            },
+        "Multiplication (2..12) * (11..12)":
+            {
+                "premier facteurs" : [11,12],
+                "deuxieme facteurs": [12, 8, 11, 7] 
+            },
+        "Multiplication (2..6) * (13..20)":
+            {
+                "premier facteurs" : [4, 5, 6, 2, 3],
+                "deuxieme facteurs": [13, 14, 18, 16] 
+            },
+        "Multiplication (3..8) * (21..50)": 
+            {
             "premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
-            "deuxieme facteurs": [4, 6, 8, 9, 5, 7] 
-        },
-    "Multiplication (2..12) * (11..12)":
+            "deuxieme facteurs": [29, 37, 46, 28] 
+            }
+    },
+    "Addition":
+    {
+        "Addition (1..10) + (1..10)":
         {
-            "premier facteurs" : [11,12],
-            "deuxieme facteurs": [12, 8, 11, 7] 
-        },
-	"Multiplication (2..6) * (13..20)":
-        {
-            "premier facteurs" : [4, 5, 6, 2, 3],
-            "deuxieme facteurs": [13, 14, 18, 16] 
-        },
-	"Multiplication (3..8) * (21..50)": 
-		{
-		"premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
-		"deuxieme facteurs": [29, 37, 46, 28] 
-		}
+            "term1": [1,2],
+            "term2":[2]
+        }
+    }
 }
