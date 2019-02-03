@@ -14,11 +14,24 @@ import csv #for statiristics logs
 # Initialisation
 ################
 
+# Récupération des paramètres généraux
+with open("settings.json", "r") as file:
+    dataSettings = json.load(file)
+    file.close()
+
 # Initialization des sons
-#badSound = "bad.waw"
-soundActive = False
-badSound = "Batar.wav"
-goodSound = "good.wav"
+soudSetting = dataSettings["son"]
+if soudSetting["active"] == "on":
+    soundActive = True
+elif soudSetting["active"] == "off":
+    soundActive = False
+else:
+    print("ERROR in setting parameter for -son- key")
+    enterKey = input("press a key to continue")
+badSound = soudSetting["bad_sound"]
+goodSound = soudSetting["good_sound"]
+
+
 # initialisation du temps
 maintenant = datetime.datetime.today()
 currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
@@ -33,17 +46,22 @@ recordFile = "records.csv"
 exerciceRecord = [] # Enregistrement d'un calculs "Date", "Time", "Joueur", "Nom du test", "Calcul", "nbr. Tentatives", "Duree"
 calculsRecords = [] # enregistrement des calculs faux pour les statistiques
 
-# Récupération des paramètres généraux
-with open("settings.json", "r") as file:
-    dataSettings = json.load(file)
-    file.close()
-nomJoueur = selectionJoueur(dataSettings)
-
-# Récupération des exercices
+# Affichage et selection du joueur
+print("Joueurs: ")
+users = dataSettings["users"]
+nomJoueur = choisirElement(users)
+    
+# Affichage et selection de l exercice
 with open(exercicesFile, 'r') as file:
     dataExercices = json.load(file)
     file.close()
-nomExerciceChoisi = choisirExercice(dataExercices)
+# recuperation de la liste des exercices
+listExercices = []
+for exercicePossible in dataExercices.keys():
+    listExercices.append(exercicePossible)
+#selection d un exercice dans la liste
+nomExerciceChoisi = choisirElement(listExercices)
+
 
 ##########################
 # Execution de l'exercice#

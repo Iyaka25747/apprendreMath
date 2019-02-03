@@ -1,4 +1,9 @@
 {
+    "Multi test": 
+    {
+    "premier facteurs" : [1],
+    "deuxieme facteurs": [1,2] 
+    },
     "Multiplication (3..8) * (4..9)": 
         {
             "premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
