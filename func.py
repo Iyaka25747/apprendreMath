@@ -1,6 +1,7 @@
 import time
 import winsound # Son, bruitage 
 import os #for terminal screen clearing
+from random import shuffle
 
 # Capture d'un choix qui ne peut qu'un chiffre
 def captureNumber(questionText):
@@ -62,7 +63,7 @@ def choisirExercice(dataExercice):
     print("Tu as choisis: " + nomExerciceChoisi)
     return nomExerciceChoisi
 
-def executeMulitplication(listMultiplications, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi):
+def executeMulitplication(listMultiplications, random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi, modeExerciceChoisi):
     # Récupération des facteurs de multiplication de l exercice
     #facteursCalculs = dataExercices[nomTypeCalculChoisi][nomExerciceChoisi]
     premierFacteurs = listMultiplications["premier facteurs"]
@@ -105,7 +106,7 @@ def executeMulitplication(listMultiplications, soundActive, badSound, goodSound,
             print("Nombre de tentatives: " + str(nbrTentatives))
 
             # enregistrement du resultat
-            recordLine = [currentDate, currentTime , nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+            recordLine = [currentDate, currentTime , nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
             if nbrTentatives > 1:
                 #calculsRecords.append(recordCalcul) # ajout à la liste
                 recordsCalculs.append(recordLine)
@@ -115,4 +116,70 @@ def executeMulitplication(listMultiplications, soundActive, badSound, goodSound,
     tempsTotalFin = time.perf_counter()
     dureeExercice = round(tempsTotalFin - tempsTotalDepart, 1)
     print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
+    return recordsCalculs
+
+def executeDivision(listFacteurs,random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi):
+    # Récupération des facteurs de multiplication de l exercice
+    #facteursCalculs = dataExercices[nomTypeCalculChoisi][nomExerciceChoisi]
+    premierFacteurs = listFacteurs["premier facteurs"]
+    deuxiemeFacteurs = listFacteurs["deuxieme facteurs"]
+    if random == 'True':
+        shuffle(deuxiemeFacteurs)
+        shuffle(premierFacteurs)
+        dividendes = []
+        for i in premierFacteurs:
+            for n in deuxiemeFacteurs:
+                dividende = i * n
+                dividendes.append([i, n, dividende])
+        shuffle(dividendes)
+    nombreDeCalculs = len(premierFacteurs) * len(deuxiemeFacteurs)
+    print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
+
+    # Exercices
+    nombreCalculRestant = nombreDeCalculs
+    tempsTotalDepart = time.perf_counter()
+    nombreReponsesFaussesTot = 0
+    recordsCalculs = []
+    indexCalcul = 0
+    for calculItem in dividendes:
+            calculText = "{dividende}/{diviseur}".format(dividende=calculItem[2], diviseur=calculItem[0])
+            reponseFausse = True
+            nbrTentatives = 0
+            tempsDepartCalcul = time.perf_counter()
+            recordCalcul = {}
+            while reponseFausse:
+                reponse = captureNumber("[{countDown} calculs restant] Entrer le résultat de la division {calculText}: ".format(
+                    countDown=nombreCalculRestant, calculText=calculText))
+                nbrTentatives = nbrTentatives + 1
+                # vérification de la réponse
+                if reponse == calculItem[1]:
+                    reponseFausse = False
+                    if soundActive == True:
+                        winsound.PlaySound(
+                            goodSound, winsound.SND_FILENAME)
+                else:
+                    reponseFausse = True
+                    if soundActive == True:
+                        winsound.PlaySound(badSound, winsound.SND_FILENAME)
+                    # print("Peux faire mieux ...")
+            indexCalcul = indexCalcul + 1
+            nombreCalculRestant = nombreCalculRestant - 1
+            tempsFinCalcul = time.perf_counter()
+            dureeCalcul = round(tempsFinCalcul - tempsDepartCalcul, 1)
+            print("Nombre de tentatives: " + str(nbrTentatives))
+
+            # enregistrement du resultat
+            recordLine = [currentDate, currentTime, nomJoueur, nomTypeCalculChoisi,
+                        nomExerciceChoisi, modeExerciceChoisi, calculText, nbrTentatives, dureeCalcul]
+            if nbrTentatives > 1:
+                #calculsRecords.append(recordCalcul) # ajout à la liste
+                recordsCalculs.append(recordLine)
+            nombreReponsesFaussesTot = nombreReponsesFaussesTot + \
+                (nbrTentatives-1)
+
+    #Statistiques globales
+    tempsTotalFin = time.perf_counter()
+    dureeExercice = round(tempsTotalFin - tempsTotalDepart, 1)
+    print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(
+    tempsExercice=dureeExercice, totalReponseFaux=nombreReponsesFaussesTot))
     return recordsCalculs

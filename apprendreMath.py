@@ -31,6 +31,7 @@ else:
 badSound = soudSetting["bad_sound"]
 goodSound = soudSetting["good_sound"]
 
+random = dataSettings["random"]
 
 # initialisation du temps
 maintenant = datetime.datetime.today()
@@ -55,34 +56,35 @@ users = dataSettings["users"]
 nomJoueur = choisirElement(users)
 
 # Affichage et selection de la categorie multiplication, addition, division...
-# recuperation de la liste des exercices
-listTypeCalcul = []
-for typeCalcul in dataExercices.keys():
-    listTypeCalcul.append(typeCalcul)
-#selection d un exercice dans la liste
-nomTypeCalculChoisi = choisirElement(listTypeCalcul)
-
+listElement = list(dataExercices.keys())
+nomTypeCalculChoisi = choisirElement(listElement)
 
 # Affichage et selection de l exercice
 # recuperation de la liste des exercices
-listExercices = []
-for exercicePossible in dataExercices[nomTypeCalculChoisi].keys():
-    listExercices.append(exercicePossible)
-#selection d un exercice dans la liste
-nomExerciceChoisi = choisirElement(listExercices)
+listElement = list(dataExercices[nomTypeCalculChoisi].keys())
+nomExerciceChoisi = choisirElement(listElement)
+
+# Choix du mode d exercice trouver le résultat Multiplication ou d une Division
+listElement = ["Multiplication", "Division"]
+print("Que veux tu exercer ?")
+modeExerciceChoisi = choisirElement(listElement)
 
 
-################
-# ###########
+###########################
 # Execution de l'exercice #
 ###########################
 
 #Clear terminal screen
 os.system('cls' if os.name == 'nt' else 'clear')
-if nomTypeCalculChoisi == "Multiplication":
-  resultatsCalculs =  executeMulitplication(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi], soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi)
+if nomTypeCalculChoisi == "Multiplication-Division":
+    if modeExerciceChoisi == "Multiplication":
+        resultatsCalculs = executeMulitplication(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi], random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
+    else:
+        resultatsCalculs = executeDivision(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi],random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
+else:
+    print("... en construction...")
 
-#Enregistrement des statistiques
+#Enregistrement des résultats
 myFile = open(recordFile, 'a')
 print("Enregistrement des calculs dans {fichier}".format(fichier = recordFile ))
 with myFile:
