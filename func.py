@@ -3,6 +3,9 @@ import winsound # Son, bruitage
 import os #for terminal screen clearing
 from random import shuffle
 
+class NumberMulDiv(object):
+    """ Represent a multiplication"""
+    
 # Capture d'un choix qui ne peut qu'un chiffre
 def captureNumber(questionText):
     isNotInteger = True
@@ -63,7 +66,7 @@ def choisirExercice(dataExercice):
     print("Tu as choisis: " + nomExerciceChoisi)
     return nomExerciceChoisi
 
-def executeMulitplication(listMultiplications, random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi, modeExerciceChoisi):
+def executeMulitplication(listMultiplications, random, globalSettings, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi, modeExerciceChoisi):
     # Récupération des facteurs de multiplication de l exercice
     #facteursCalculs = dataExercices[nomTypeCalculChoisi][nomExerciceChoisi]
     premierFacteurs = listMultiplications["premier facteurs"]
@@ -82,7 +85,7 @@ def executeMulitplication(listMultiplications, random, soundActive, badSound, go
             reponseFausse = True
             nbrTentatives = 0
             tempsDepartCalcul = time.perf_counter()
-            recordCalcul = {}
+            #recordCalcul = {}
             while reponseFausse:
                 reponse = captureNumber("[{countDown} calculs restant] Entrer le résultat de {facteur1}x{facteur2}: ".format(
                     countDown=nombreCalculRestant, facteur1=facteur1, facteur2=facteur2))
@@ -90,12 +93,12 @@ def executeMulitplication(listMultiplications, random, soundActive, badSound, go
                 # vérification de la réponse
                 if reponse == facteur1 * facteur2:
                     reponseFausse = False
-                    if soundActive == True:
-                        winsound.PlaySound(goodSound, winsound.SND_FILENAME)
+                    if globalSettings.soundActive == True:
+                        winsound.PlaySound(globalSettings.goodSound, winsound.SND_FILENAME)
                 else:
                     reponseFausse = True
-                    if soundActive == True:
-                        winsound.PlaySound(badSound, winsound.SND_FILENAME)
+                    if globalSettings.soundActive == True:
+                        winsound.PlaySound(globalSettings.badSound, winsound.SND_FILENAME)
                     # print("Peux faire mieux ...")
             indexCalcul = indexCalcul + 1
             nombreCalculRestant = nombreCalculRestant - 1
@@ -106,7 +109,7 @@ def executeMulitplication(listMultiplications, random, soundActive, badSound, go
             print("Nombre de tentatives: " + str(nbrTentatives))
 
             # enregistrement du resultat
-            recordLine = [currentDate, currentTime , nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
+            recordLine = [globalSettings.currentDate, globalSettings.currentTime , nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi, calcul, nbrTentatives, dureeCalcul]
             if nbrTentatives > 1:
                 #calculsRecords.append(recordCalcul) # ajout à la liste
                 recordsCalculs.append(recordLine)
@@ -118,21 +121,27 @@ def executeMulitplication(listMultiplications, random, soundActive, badSound, go
     print("temps passé: {tempsExercice} secondes, Nombre de réponses fausses: {totalReponseFaux}".format(tempsExercice = dureeExercice,totalReponseFaux = nombreReponsesFaussesTot))
     return recordsCalculs
 
-def executeDivision(listFacteurs,random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi):
+def executeDivision(listFacteurs,random, globalSettings, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi):
     # Récupération des facteurs de multiplication de l exercice
     #facteursCalculs = dataExercices[nomTypeCalculChoisi][nomExerciceChoisi]
     premierFacteurs = listFacteurs["premier facteurs"]
     deuxiemeFacteurs = listFacteurs["deuxieme facteurs"]
+    
+    #shuffle(deuxiemeFacteurs)
+    #shuffle(premierFacteurs)
+    dividendes = []
+    for i in premierFacteurs:
+        dividende = i * i
+        dividendes.append([i, i, dividende])
+        for n in deuxiemeFacteurs:
+            dividende = i * n
+            dividendes.append([i, n, dividende])
+    for n in deuxiemeFacteurs:
+            dividende = n * n
+            dividendes.append([n, n, dividende])
     if random == 'True':
-        shuffle(deuxiemeFacteurs)
-        shuffle(premierFacteurs)
-        dividendes = []
-        for i in premierFacteurs:
-            for n in deuxiemeFacteurs:
-                dividende = i * n
-                dividendes.append([i, n, dividende])
         shuffle(dividendes)
-    nombreDeCalculs = len(premierFacteurs) * len(deuxiemeFacteurs)
+    nombreDeCalculs = len(dividendes)
     print("Nombre de calculs à faire: {0}".format(nombreDeCalculs))
 
     # Exercices
@@ -146,7 +155,7 @@ def executeDivision(listFacteurs,random, soundActive, badSound, goodSound, curre
             reponseFausse = True
             nbrTentatives = 0
             tempsDepartCalcul = time.perf_counter()
-            recordCalcul = {}
+            #recordCalcul = {}
             while reponseFausse:
                 reponse = captureNumber("[{countDown} calculs restant] Entrer le résultat de la division {calculText}: ".format(
                     countDown=nombreCalculRestant, calculText=calculText))
@@ -154,13 +163,13 @@ def executeDivision(listFacteurs,random, soundActive, badSound, goodSound, curre
                 # vérification de la réponse
                 if reponse == calculItem[1]:
                     reponseFausse = False
-                    if soundActive == True:
+                    if globalSettings.soundActive == True:
                         winsound.PlaySound(
-                            goodSound, winsound.SND_FILENAME)
+                            globalSettings.goodSound, winsound.SND_FILENAME)
                 else:
                     reponseFausse = True
-                    if soundActive == True:
-                        winsound.PlaySound(badSound, winsound.SND_FILENAME)
+                    if globalSettings.soundActive == True:
+                        winsound.PlaySound(globalSettings.badSound, winsound.SND_FILENAME)
                     # print("Peux faire mieux ...")
             indexCalcul = indexCalcul + 1
             nombreCalculRestant = nombreCalculRestant - 1
@@ -169,7 +178,7 @@ def executeDivision(listFacteurs,random, soundActive, badSound, goodSound, curre
             print("Nombre de tentatives: " + str(nbrTentatives))
 
             # enregistrement du resultat
-            recordLine = [currentDate, currentTime, nomJoueur, nomTypeCalculChoisi,
+            recordLine = [globalSettings.currentDate, globalSettings.currentTime, nomJoueur, nomTypeCalculChoisi,
                         nomExerciceChoisi, modeExerciceChoisi, calculText, nbrTentatives, dureeCalcul]
             if nbrTentatives > 1:
                 #calculsRecords.append(recordCalcul) # ajout à la liste

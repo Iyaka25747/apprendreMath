@@ -15,6 +15,10 @@ import csv #for statiristics logs
 ################
 
 # Récupération des paramètres généraux
+class SettingGlobal(object):
+    """Global class to hold the settings"""
+globalSettings = SettingGlobal()
+
 with open("settings.json", "r") as file:
     dataSettings = json.load(file)
     file.close()
@@ -22,22 +26,22 @@ with open("settings.json", "r") as file:
 # Initialization des sons
 soudSetting = dataSettings["son"]
 if soudSetting["active"] == "on":
-    soundActive = True
+    globalSettings.soundActive = True
 elif soudSetting["active"] == "off":
-    soundActive = False
+    globalSettings.soundActive = False
 else:
     print("ERROR in setting parameter for -son- key")
     enterKey = input("press a key to continue")
-badSound = soudSetting["bad_sound"]
-goodSound = soudSetting["good_sound"]
+globalSettings.badSound = soudSetting["bad_sound"]
+globalSettings.goodSound = soudSetting["good_sound"]
 
 random = dataSettings["random"]
 
 # initialisation du temps
 maintenant = datetime.datetime.today()
-currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
-currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
-print("Date: {0}, Time:{1}".format(currentDate, currentTime))
+globalSettings.currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
+globalSettings.currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
+print("Date: {0}, Time:{1}".format(globalSettings.currentDate, globalSettings.currentTime))
 
 #Fichier source exercices
 exercicesFile = 'exercices.json'
@@ -78,9 +82,9 @@ modeExerciceChoisi = choisirElement(listElement)
 os.system('cls' if os.name == 'nt' else 'clear')
 if nomTypeCalculChoisi == "Multiplication-Division":
     if modeExerciceChoisi == "Multiplication":
-        resultatsCalculs = executeMulitplication(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi], random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
+        resultatsCalculs = executeMulitplication(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi], random, globalSettings, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
     else:
-        resultatsCalculs = executeDivision(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi],random, soundActive, badSound, goodSound, currentDate, currentTime, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
+        resultatsCalculs = executeDivision(dataExercices[nomTypeCalculChoisi][nomExerciceChoisi],random, globalSettings, nomJoueur, nomTypeCalculChoisi, nomExerciceChoisi,modeExerciceChoisi)
 else:
     print("... en construction...")
 
@@ -93,6 +97,6 @@ with myFile:
 print("Fin de l'enregistrement")
 myFile.close()
 
-print("\nOuf.... c'est fini ...")
+print("\nOuf.... c'est fini ...\n")
 
-fin = input("Terminé")
+fin = input("Terminé, press une touche...")

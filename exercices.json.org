@@ -1,30 +1,30 @@
 {
-    "Multiplication":
+    "Multiplication-Division":
     {
-        "Multi test": 
+        "Debug Test (1) et (1..2)": 
         {
         "premier facteurs" : [1],
         "deuxieme facteurs": [1,2] 
         },
-        "Multiplication (3..8) * (4..9)": 
+        "(3..6) * (5..9)": 
             {
-                "premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
-                "deuxieme facteurs": [4, 6, 8, 9, 5, 7] 
+                "premier facteurs" : [3,4,5,6],
+                "deuxieme facteurs": [5,6,7,8,9] 
             },
-        "Multiplication (2..12) * (11..12)":
+        "(8..12) * (11..12)":
             {
-                "premier facteurs" : [11,12],
-                "deuxieme facteurs": [12, 8, 11, 7] 
+                "premier facteurs" : [8,9,11,12],
+                "deuxieme facteurs": [11,12] 
             },
-        "Multiplication (2..6) * (13..20)":
+        "(2..6) * (13..20)":
             {
-                "premier facteurs" : [4, 5, 6, 2, 3],
-                "deuxieme facteurs": [13, 14, 18, 16] 
+                "premier facteurs" : [2,3,4,5,6],
+                "deuxieme facteurs": [13, 14, 16,18] 
             },
-        "Multiplication (3..8) * (21..50)": 
+        "(3..9) * (29..46)": 
             {
-            "premier facteurs" : [3, 6, 5, 4, 7, 9, 8],
-            "deuxieme facteurs": [29, 37, 46, 28] 
+            "premier facteurs" : [3,4,5,6,7,8,9],
+            "deuxieme facteurs": [29, 37, 46] 
             }
     },
     "Addition":
