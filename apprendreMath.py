@@ -1,4 +1,4 @@
-# Under dev
+# Stable version
 
 import json
 import random
