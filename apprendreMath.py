@@ -41,7 +41,7 @@ random = dataSettings["random"]
 maintenant = datetime.datetime.today()
 globalSettings.currentDate = "{day}.{month}.{year}".format(year = maintenant.year, month=  maintenant.month, day=  maintenant.day)#datetime.date.today()
 globalSettings.currentTime = "{hour}:{minute}:{second}".format(hour = maintenant.hour, minute=  maintenant.minute, second=  maintenant.second)
-print("Date: {0}, Time:{1}".format(globalSettings.currentDate, globalSettings.currentTime))
+print("Date: {0}, Time:{1} Math".format(globalSettings.currentDate, globalSettings.currentTime))
 
 #Fichier source exercices
 exercicesFile = 'exercices.json'
