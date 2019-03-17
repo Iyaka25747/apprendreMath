@@ -15,6 +15,8 @@ import csv #for statiristics logs
 ################
 
 # Récupération des paramètres généraux
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 class SettingGlobal(object):
     """Global class to hold the settings"""
 globalSettings = SettingGlobal()
@@ -44,10 +46,16 @@ globalSettings.currentTime = "{hour}:{minute}:{second}".format(hour = maintenant
 print("Date: {0}, Time:{1} Math".format(globalSettings.currentDate, globalSettings.currentTime))
 
 #Fichier source exercices
-exercicesFile = 'exercices.json'
-with open(exercicesFile, 'r') as file:
+exercicesFile = "exercices.json"
+with open(dir_path + '/' + exercicesFile, 'r') as file:
     dataExercices = json.load(file)
     file.close()
+
+# with open("settings.json", "r") as file:
+#     dataSettings = json.load(file)
+#     file.close()
+
+
 
 #initialisation du fichier de statistiques
 recordFile = "records.csv"
