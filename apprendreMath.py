@@ -107,4 +107,4 @@ myFile.close()
 
 print("\nOuf.... c'est fini ...\n")
 
-fin = input("Terminé, press une touche...")
+fin = input("Terminé, presser la touche \'enter\' ...")
